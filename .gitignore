@@ -1,3 +1,6 @@
 # Python
 /.idea/
 /backend/.venv/
+
+# Database
+/backend/db.sqlite3
