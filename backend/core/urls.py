@@ -21,8 +21,9 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('', RedirectView.as_view(url='/chat/', permanent=False)),
-    path('', views.home_page),
+    path('', RedirectView.as_view(url='/chat/', permanent=False)),
+    # path('', views.home_page),
     path('users/', include('users.urls')),
     path('chat/', include('chat.urls')),
+    path('settings/', include('settings.urls')),
 ]
