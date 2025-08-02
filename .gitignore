@@ -1,6 +1,7 @@
 # Python
 /.idea/
-/backend/.venv/
+**/.venv/
+**/__pycache__/
 
 # Database
 /backend/db.sqlite3
