@@ -3,11 +3,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chat with Navi!</title>
+    <title>
+        {% block title %}
+            Django App <!-- default name for title -->
+        {% endblock %}
+    </title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/main.js' %}" defer></script>
 </head>
 <body>
-    <h1>Hello, I'm Navi!</h1>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <nav>
+        <a href="/chat">💬</a> |
+        <a href="/shop">🛒</a> |
+        <a href="/settings">⚙️</a> |
+    </nav>
 </body>
 </html>
