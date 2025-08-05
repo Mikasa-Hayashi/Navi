@@ -1,3 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+class Companion(models.Model):
+    name = models.CharField(max_length=255)
+    age = models.PositiveSmallIntegerField()
+    gender = models.CharField(max_length=7, choices=[('male', 'Male'), ('female', 'Female')])
+    eye_color = models.CharField(max_length=50)
+    hair_color = models.CharField(max_length=50)
+    avatar = models.URLField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ['created_at']
