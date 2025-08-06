@@ -15,7 +15,7 @@ class Conversation(models.Model):
         return self.title
     
     class Meta:
-        ordering = ['updated_at']
+        ordering = ['-updated_at'] # From new to old
 
 
 class Message(models.Model):
