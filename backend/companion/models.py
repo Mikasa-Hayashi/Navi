@@ -4,7 +4,7 @@ from django.conf import settings
 # Create your models here.
 class Companion(models.Model):
     name = models.CharField(max_length=255)
-    age = models.PositiveSmallIntegerField()
+    birth_date = models.DateTimeField()
     gender = models.CharField(max_length=7, choices=[('male', 'Male'), ('female', 'Female')])
     eye_color = models.CharField(max_length=50)
     hair_color = models.CharField(max_length=50)
