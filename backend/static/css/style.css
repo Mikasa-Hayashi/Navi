@@ -30,3 +30,17 @@ body {
     text-decoration: none;
     font-size: 70px;
 }
+
+.avatar-photo {
+    height: 50px;
+    width: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chat-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
