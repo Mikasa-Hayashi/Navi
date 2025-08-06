@@ -5,7 +5,7 @@ from django.conf import settings
 # Create your models here.
 class Conversation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = models.CharField(max_length=75)
+    title = models.CharField(max_length=75, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -19,7 +19,7 @@ class Conversation(models.Model):
 
 
 class Message(models.Model):
-    content = models.TextField()
+    content = models.TextField(blank=False)
     created_at = models.DateTimeField()
     sender_type = models.CharField(max_length=10, choices=[('user', 'User'), ('companion', 'Companion')])
     conversation_id = models.ForeignKey(Conversation, on_delete=models.CASCADE)
