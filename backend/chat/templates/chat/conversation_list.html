@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Chat with Navi!
+{% endblock %}
+
+{% block content %}
+    <ul class="chat-list">
+        {% for conversation in conversations %}
+            <a class="chat-item" href="{% url 'conversation' uuid=conversation.id %}">
+                <div class="chat-avatar">
+                    <img class="avatar-photo" src="{{ conversation.companion_id.avatar }}">
+                </div>
+                <div class="chat-info">
+                    <div class="chat-title">
+                        {{ conversation.title }}
+                    </div>
+                    <div class="chat-subtitle">
+                        
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </ul>
+{% endblock %}
