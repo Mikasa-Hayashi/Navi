@@ -17,9 +17,15 @@
         {% endblock %}
     </main>
     <nav class="navigation-bar">
-        <a href="{% url 'chat:conversation_list' %}">💬</a>
-        <a href="/shop">🛒</a>
-        <a href="/settings">⚙️</a>
+        <a href="{% url 'chat:conversation_list' %}">
+            <span role="img" aria-lable="Chat">💬</span>
+        </a>
+        <a href="/shop">
+            <span role="img" aria-lable="Shop">🛒</span>
+        </a>
+        <a href="/settings">
+            <span role="img" aria-lable="Settings">⚙️</span>
+        </a>
     </nav>
 </body>
 </html>
