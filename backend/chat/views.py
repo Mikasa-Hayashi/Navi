@@ -8,4 +8,8 @@ def conversation_list(request):
 
 def conversation_detail(request, uuid):
     conversation = Conversation.objects.get(id=uuid)
-    return render(request, 'chat/conversation_detail.html', { 'conversation': conversation })
+    messages = conversation.messages.all()
+    return render(request, 'chat/conversation_detail.html', { 
+        'conversation': conversation,
+        'messages': messages,
+    })
