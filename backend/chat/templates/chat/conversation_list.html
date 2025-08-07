@@ -7,7 +7,7 @@
 {% block content %}
     <ul class="chat-list">
         {% for conversation in conversations %}
-            <a class="chat-item" href="{% url 'conversation' uuid=conversation.id %}">
+            <a class="chat-item" href="{% url 'chat:conversation_detail' uuid=conversation.id %}">
                 <div class="chat-avatar">
                     <img class="avatar-photo" src="{{ conversation.companion_id.avatar }}">
                 </div>
