@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="chat-container">
+        <div class="conversation-list-sidebar">
+            {% block conversation_list_sidebar %}{% endblock %}
+        </div>
+        <div class="conversation-detail-main">
+            {% block conversation_detail_main %}{% endblock %}
+        </div>
+    </div>
+{% endblock %}
