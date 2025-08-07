@@ -2,9 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Registration</title>
 </head>
 <body>
-    <h1>This is reg field</h1>
+    <h1>Registration</h1>
+    <form class="form-with-validato=ion" action="/users/register/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button>Submit</button>
+    </form>
 </body>
 </html>
