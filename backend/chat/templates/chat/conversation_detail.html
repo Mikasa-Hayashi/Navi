@@ -12,7 +12,10 @@
                 {{ message.content }}
             </div>
         {% endfor %}
-
-        
+        <form class="conversation-send-message-form" action="{% url 'chat:send_message' conversation_id=conversation.id %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="text" placeholder="Type to {{ conversation.companion_id.name }}" required>
+            <button type="submit">Send</button>
+        </form>
     </div>
 {% endblock %}
