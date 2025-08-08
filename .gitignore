@@ -10,4 +10,7 @@
 .env
 
 # Weights
-**/Weights/
+**/weights/
+
+# NN
+/backend/companion_core/
