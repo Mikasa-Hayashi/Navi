@@ -1,21 +1,23 @@
-{% extends 'chat/chat.html' %}
+{% extends 'layout.html' %}
 
-{% block conversation_list_sidebar %}
-    <ul class="chat-list">
-        {% for conversation in conversations %}
-            <a class="chat-item" href="{% url 'chat:conversation_detail' uuid=conversation.id %}">
-                <div class="chat-avatar">
-                    <img class="avatar-photo" src="{{ conversation.companion_id.avatar }}">
-                </div>
-                <div class="chat-info">
-                    <div class="chat-title">
-                        {{ conversation.title }}
+{% block content %}
+    <div class="conversation-list-sidebar">
+        <ul class="chat-list">
+            {% for conversation in conversations %}
+                <a class="chat-item" href="{% url 'chat:conversation_detail' conversation_id=conversation.id %}">
+                    <div class="chat-avatar">
+                        <img class="avatar-photo" src="{{ conversation.companion_id.avatar }}">
                     </div>
-                    <div class="chat-subtitle">
-                        
+                    <div class="chat-info">
+                        <div class="chat-title">
+                            {{ conversation.title }}
+                        </div>
+                        <div class="chat-subtitle">
+                            
+                        </div>
                     </div>
-                </div>
-            </a>
-        {% endfor %}
-    </ul>
+                </a>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
