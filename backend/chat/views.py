@@ -21,6 +21,6 @@ def send_message(request, conversation_id):
             Message.objects.create(
                 content=content,
                 sender_type='user',
-                conversation_id=conversation_id
+                conversation_id=conversation_id,
             )
     return redirect('chat:conversation_detail', conversation_id=conversation_id)
