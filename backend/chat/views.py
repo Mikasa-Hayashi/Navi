@@ -18,9 +18,10 @@ def send_message(request, conversation_id):
     if request.method == 'POST':
         content = request.POST.get('text')
         if content.strip():
+            conversation = Conversation.objects.get(id=conversation_id)
             Message.objects.create(
                 content=content,
                 sender_type='user',
-                conversation_id=conversation_id,
+                conversation_id=conversation,
             )
     return redirect('chat:conversation_detail', conversation_id=conversation_id)
