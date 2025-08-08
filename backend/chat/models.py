@@ -20,7 +20,7 @@ class Conversation(models.Model):
 
 class Message(models.Model):
     content = models.TextField(blank=False)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
     sender_type = models.CharField(max_length=10, choices=[('user', 'User'), ('companion', 'Companion')])
     conversation_id = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages')
 
