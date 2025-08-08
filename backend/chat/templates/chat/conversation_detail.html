@@ -1,9 +1,18 @@
-{% extends 'chat/chat.html' %}
+{% extends 'layout.html' %}
 
-{% block conversation_detail_main %}
-    {% for message in messages %}
-        <div>
-            {{ message.content }}
-        </div>
-    {% endfor %}
+{% block title %}
+    {{ conversation.title }}
+{% endblock %}
+
+{% block content %}
+    <div class="conversation-detail-main">
+        <a href={% url 'chat:conversation_list' %}>Back to chats</a>
+        {% for message in messages %}
+            <div>
+                {{ message.content }}
+            </div>
+        {% endfor %}
+
+        
+    </div>
 {% endblock %}
