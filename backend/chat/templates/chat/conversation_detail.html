@@ -16,11 +16,30 @@
                 </div>
             {% endfor %}
         </div>
-        <form class="conversation-send-message-form" action="{% url 'chat:send_message' conversation_id=conversation.id %}" method="post">
+        <form id="send-message-form" class="conversation-send-message-form">
             {% csrf_token %}
-            <input type="text" name="text" placeholder="Type to {{ conversation.companion_id.name }}" required>
+            <input type="text" name="message" placeholder="Type to {{ conversation.companion_id.name }}" required>
             <button type="submit">Send</button>
         </form>
     </div>
-    <script src="{% static 'js/chat.js' %}"></script>
+    <script>
+        let url = `ws://${window.location.host}/ws/{{ conversation.id|escapejs }}/send_message/`
+        const chatSocket = new WebSocket(url)
+
+        chatSocket.onmessage = function(event) {
+            let data = JSON.parse(event.data)
+            console.log(data)
+        }
+
+        let form = document.getElementById('send-message-form')
+        form.addEventListener('submit', (event)=> {
+            event.preventDefault()
+            let message = event.target.message.value
+            console.log(message)
+            chatSocket.send(JSON.stringify({
+                'message':message
+            }))
+            form.reset()
+        })
+    </script>
 {% endblock %}
