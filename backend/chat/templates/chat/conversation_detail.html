@@ -9,10 +9,12 @@
 {% block content %}
     <div class="conversation-detail-main">
         <a href={% url 'chat:conversation_list' %}>Back to chats</a>
-        <div id="messages-contariner">
+        <div id="messages-container">
             {% for message in messages %}
                 <div class="message">
-                    {{ message.content }}
+                    <p>
+                        {{ message.content }}
+                    </p>
                 </div>
             {% endfor %}
         </div>
@@ -29,6 +31,16 @@
         chatSocket.onmessage = function(event) {
             let data = JSON.parse(event.data)
             console.log(data)
+
+            if (data.type === 'message') {
+                let messages = document.getElementById('messages-container')
+
+                messages.insertAdjacentHTML('beforeend',
+                `<div class="message">
+                    <p>${data.message}</p>
+                </div>`
+                )
+            }
         }
 
         let form = document.getElementById('send-message-form')
@@ -37,7 +49,7 @@
             let message = event.target.message.value
             console.log(message)
             chatSocket.send(JSON.stringify({
-                'message':message
+                'message': message
             }))
             form.reset()
         })
