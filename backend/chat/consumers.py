@@ -7,7 +7,7 @@ class ChatConsumer(WebsocketConsumer):
 
         self.send(text_data=json.dumps({
             'type': 'connection_established',
-            'message': 'hi, love❤️'
+            'message': 'Hello, my creator! You are connected now!'
         }))
     
     def receive(self, text_data):
