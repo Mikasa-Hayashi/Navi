@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 
+{% load static %}
+
 {% block title %}
     {{ conversation.title }}
 {% endblock %}
@@ -7,15 +9,18 @@
 {% block content %}
     <div class="conversation-detail-main">
         <a href={% url 'chat:conversation_list' %}>Back to chats</a>
-        {% for message in messages %}
-            <div>
-                {{ message.content }}
-            </div>
-        {% endfor %}
+        <div id="messages-contariner">
+            {% for message in messages %}
+                <div class="message">
+                    {{ message.content }}
+                </div>
+            {% endfor %}
+        </div>
         <form class="conversation-send-message-form" action="{% url 'chat:send_message' conversation_id=conversation.id %}" method="post">
             {% csrf_token %}
             <input type="text" name="text" placeholder="Type to {{ conversation.companion_id.name }}" required>
             <button type="submit">Send</button>
         </form>
     </div>
+    <script src="{% static 'js/chat.js' %}"></script>
 {% endblock %}
