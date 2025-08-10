@@ -1,22 +1,23 @@
 import json
-from channels.generic.websocket import WebsocketConsumer
+from channels.generic.websocket import AsyncWebsocketConsumer
+from asyncio import sleep
 
-class ChatConsumer(WebsocketConsumer):
-    def connect(self):
-        self.accept()
+class ChatConsumer(AsyncWebsocketConsumer):
+    async def connect(self):
+        await self.accept()
 
-        self.send(text_data=json.dumps({
+        await self.send(text_data=json.dumps({
             'type': 'connection_established',
             'message': 'Hello, my creator! You are connected now!'
         }))
     
-    def receive(self, text_data):
+    async def receive(self, text_data):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
-        print('Message:', message)
-
-        self.send(text_data=json.dumps({
-            'type': 'message',
-            'message': message
-        }))
+        for i in range(20):
+            await self.send(text_data=json.dumps({
+                'type': 'message',
+                'message': f'message #{i}'
+            }))
+            await sleep(0.5)
