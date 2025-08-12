@@ -33,7 +33,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
         await self.save_message(message, 'user')
+
+        await self.send(text_data=json.dumps({
+                'type': 'message',
+                'message': message,
+            }))
+        
         await self.channel_layer.group_send(self.group_name, {
+            'consumer': self.channel_name,
             'type': 'chat_message',
             'message': message,
         })
@@ -43,16 +50,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
         companion_message = f'I will be able to answer to this soon: {message}'
         await self.save_message(companion_message, 'companion')
         await self.channel_layer.group_send(self.group_name, {
+            'consumer': 'other_consumer',
             'type': 'chat_message',
             'message': companion_message,
         })
 
 
     async def chat_message(self, event):
-        await self.send(text_data=json.dumps({
-            'type': 'message',
-            'message': event['message'],
-        }))
+        if event['consumer'] != self.channel_name:
+            await self.send(text_data=json.dumps({
+                'type': 'message',
+                'message': event['message'],
+            }))
 
 
     async def save_message(self, content, sender_type):
