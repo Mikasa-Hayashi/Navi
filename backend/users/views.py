@@ -1,4 +1,4 @@
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
@@ -19,7 +19,12 @@ def log_in_user(request):
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
             login(request, form.get_user())
-            return redirect('chat:conversation_list')
+            return redirect(request.POST.get('next', 'chat:conversation_list'))
     else:
         form = AuthenticationForm()
     return render(request, 'users/login.html', { 'form': form })
+
+def log_out_user(request):
+    if request.method == 'POST':
+        logout(request)
+        return redirect('users:login')

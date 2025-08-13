@@ -5,11 +5,15 @@
     <title>Log in!</title>
 </head>
 <body>
-    <h1>Registration</h1>
+    <h1>Login</h1>
     <form class="form-with-validation" action="{% url 'users:login' %}" method="post">
         {% csrf_token %}
         {{ form }}
+        {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{ request.GET.next }}" />
+        {% endif %}
         <button>Submit</button>
     </form>
+    <p>New? -  <a href="{% url 'users:register' %}">create</a> account</p>
 </body>
 </html>

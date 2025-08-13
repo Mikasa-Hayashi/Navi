@@ -1,11 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Conversation, Message
 
 # Create your views here.
+@login_required
 def conversation_list(request):
     conversations = Conversation.objects.all()
     return render(request, 'chat/conversation_list.html', { 'conversations': conversations })
 
+@login_required
 def conversation_detail(request, conversation_id):
     conversation = Conversation.objects.get(id=conversation_id)
     messages = conversation.messages.all()

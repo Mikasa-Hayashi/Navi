@@ -26,6 +26,10 @@
         <a href="/settings">
             <span role="img" aria-lable="Settings">⚙️</span>
         </a>
+        <form action="{% url 'users:logout' %}" method="post">
+            {% csrf_token %}
+            <button class="logout-button" aria-lable="User Logout" title="Logout">🚪</button>
+        </form>
     </nav>
 </body>
 </html>
