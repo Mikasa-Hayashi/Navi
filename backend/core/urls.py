@@ -23,6 +23,7 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/chat/', permanent=False)),
     path('users/', include('users.urls')),
     path('chat/', include('chat.urls')),
+    path('companion/', include('companion.urls')),
     path('settings/', include('settings.urls')),
     path('shop/', include('shop.urls')),
 ]

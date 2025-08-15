@@ -2,7 +2,7 @@ from django import forms
 from .models import Companion
 
 
-class CompanionCreationForm():
+class CompanionCreationForm(forms.ModelForm):
     name = forms.CharField(
         label='Name',
         widget=forms.TextInput(attrs={
@@ -41,11 +41,11 @@ class CompanionCreationForm():
             ('red', 'Red'),
         ],
     )
-    create_dialog = forms.BooleanField(
+    create_conversation = forms.BooleanField(
         required=False, 
         label='Create conversation',
     )
 
     class Meta:
         model = Companion
-        fields = ['name', 'birth_date', 'gender', 'eye_color', 'hair_color', 'create_dialog']
+        fields = ['name', 'birth_date', 'gender', 'eye_color', 'hair_color', 'create_conversation']
