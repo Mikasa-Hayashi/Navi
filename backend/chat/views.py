@@ -5,7 +5,7 @@ from .models import Conversation, Message
 # Create your views here.
 @login_required
 def conversation_list(request):
-    conversations = Conversation.objects.all()
+    conversations = Conversation.objects.filter(user_id=request.user)
     return render(request, 'chat/conversation_list.html', { 'conversations': conversations })
 
 @login_required
