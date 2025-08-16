@@ -2,25 +2,38 @@
 
 {% block content %}
     <div class="conversation-list-sidebar">
-        {% if conversations %}
-            <ul class="chat-list">
-                {% for conversation in conversations %}
-                    <a class="chat-item" href="{% url 'chat:conversation_detail' conversation_id=conversation.id %}">
-                        <div class="chat-avatar">
-                            <img class="avatar-photo" src="{{ conversation.companion_id.avatar }}">
+        <ul class="chat-list">
+            {% for conversation in conversations %}
+                <a class="chat-item" href="{% url 'chat:conversation_detail' conversation_id=conversation.id %}">
+                    <div class="chat-avatar">
+                        <img class="avatar-photo" src="{{ conversation.companion_id.avatar }}">
+                    </div>
+                    <div class="chat-info">
+                        <div class="chat-title">
+                            {{ conversation.title }}
                         </div>
-                        <div class="chat-info">
-                            <div class="chat-title">
-                                {{ conversation.title }}
-                            </div>
-                            <div class="chat-subtitle">
-                                
-                            </div>
+                        <div class="chat-subtitle">
+                            
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+        </ul>
+        {% if companions %}
+            <p>Available companions</p>
+            <ul class="companion-list">
+                {% for companion in companions %}
+                    <a href="{% url 'chat:create' companion_id=companion.id %}">
+                        <div class="companion-avatar">
+                            <img class="avatar-photo" src="{{ companion.avatar }}">
+                        </div>
+                        <div class="companion-info">
+                            {{ companion.name }}
                         </div>
                     </a>
                 {% endfor %}
             </ul>
-        {% else %}
+        {% elif not conversations %}
             <div class="no-avaible-companions-to-talk">
                 <a class="add-companion-button" href="{% url 'companion:create' %}">+</a>
             </div>
