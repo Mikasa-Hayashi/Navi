@@ -172,3 +172,11 @@ AUTH_USER_MODEL = 'users.user'
 
 # Login URL
 LOGIN_URL = '/users/login/'
+
+
+# Rest framework
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES' [
+        'rest_framework.permissions.IsAuthenticated'
+    ]
+}
