@@ -4,19 +4,23 @@ import viteLogo from '/vite.svg';
 import './App.css';
 import Chat from './pages/Chat';
 import Settings from './pages/Settings'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom';
+import BottomNavBar from './components/BottomNavBar';
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <main className="main-content">
-        <Routes>
-          <Route path="/chat" element={<Chat />} />
-          <Route path="/settings" element={<Settings />} />
-        </Routes>
-      </main>
+      <div>
+        <main className="main-content">
+          <Routes>
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/settings" element={<Settings />} />
+          </Routes>
+        </main>
+        <BottomNavBar />
+      </div>
     </>
   );
 }
