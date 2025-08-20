@@ -1,8 +1,18 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import Conversation, Message
+from .serializers import ConversationSerializer
 
 # Create your views here.
+class ConversatinList(APIView):
+    def get(self, request):
+        conversations = Conversation.objects.filter(user_id=request.user)
+        serializer = ConversationSerializer(conversations, many=True)
+        return Response(serializer.data)
+
+
 @login_required
 def conversation_list(request):
     conversations = Conversation.objects.filter(user_id=request.user)
