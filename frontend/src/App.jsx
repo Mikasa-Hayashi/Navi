@@ -6,6 +6,8 @@ import Chat from './pages/Chat';
 import Settings from './pages/Settings'
 import { Routes, Route } from 'react-router-dom';
 import BottomNavBar from './components/BottomNavBar';
+import Register from './pages/auth/Register';
+
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,6 +17,7 @@ function App() {
       <div>
         <main className="main-content">
           <Routes>
+            <Route path="/register" element={<Register />} />
             <Route path="/chat" element={<Chat />} />
             <Route path="/settings" element={<Settings />} />
           </Routes>
