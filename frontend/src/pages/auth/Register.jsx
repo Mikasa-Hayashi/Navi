@@ -44,6 +44,10 @@ function Register() {
         setValidMatch(match);
     }, [password, matchPassword])
 
+    useEffect(() => {
+        setErrorMessage('');
+    }, [user, password, matchPassword])
+
     return (
         <div>
             Register
