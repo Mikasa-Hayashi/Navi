@@ -96,10 +96,13 @@ function Register() {
                         required
                         aria-invalid={validPassword ? "false" : "true"}
                         aria-describedby="confirmnote"
-                        onFocus={() => setPasswordFocus(true)}
-                        onBlur={() => setPasswordFocus(false)}
+                        onFocus={() => setMatchFocus(true)}
+                        onBlur={() => setMatchFocus(false)}
                     />
                 </div>
+                <button disabled={!validName || !validPassword || !validMatch ? true : false}>
+                    Sign Up
+                </button>
             </form>
         </section>
     )
