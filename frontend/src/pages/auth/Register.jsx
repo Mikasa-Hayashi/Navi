@@ -7,7 +7,7 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8, 24}$
 
 function Register() {
     const userRef = useRef();
-    const errRef = useRef();
+    const errorRef = useRef();
 
     const [user, setUser]  = useState('');
     const [validName, setValidName] = useState(false);
@@ -49,9 +49,26 @@ function Register() {
     }, [user, password, matchPassword])
 
     return (
-        <div>
-            Register
-        </div>
+        <section>
+            <p ref={errorRef} className={errorMessage ? "error-message" : "offscreen"} aria-live="assertive">{errorMessage}</p>
+            <h1>Sign up</h1>
+            <form >
+                <label htmlFor="username">
+                    Username:
+                </label>
+                <input
+                    type="text"
+                    id="username"
+                    autoComplete="off"
+                    onChange={(event) => setUser(event.target.value)}
+                    required
+                    aria-invalid={validName ? "false" : "true"}
+                    aria-describedby="uidnote"
+                    onFocus={() => setUserFocus(true)}
+                    onBlur={() => setUserFocus(false)}
+                />
+            </form>
+        </section>
     )
 }
 
