@@ -53,20 +53,53 @@ function Register() {
             <p ref={errorRef} className={errorMessage ? "error-message" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             <h1>Sign up</h1>
             <form >
-                <label htmlFor="username">
-                    Username:
-                </label>
-                <input
-                    type="text"
-                    id="username"
-                    autoComplete="off"
-                    onChange={(event) => setUser(event.target.value)}
-                    required
-                    aria-invalid={validName ? "false" : "true"}
-                    aria-describedby="uidnote"
-                    onFocus={() => setUserFocus(true)}
-                    onBlur={() => setUserFocus(false)}
-                />
+                <div>
+                    <label htmlFor="username">
+                        Username:
+                    </label>
+                    <input
+                        type="text"
+                        id="username"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(event) => setUser(event.target.value)}
+                        required
+                        aria-invalid={validName ? "false" : "true"}
+                        aria-describedby="uidnote"
+                        onFocus={() => setUserFocus(true)}
+                        onBlur={() => setUserFocus(false)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="password">
+                        Password:
+                    </label>
+                    <input
+                        type="password"
+                        id="password"
+                        onChange={(event) => setPassword(event.target.value)}
+                        required
+                        aria-invalid={validPassword ? "false" : "true"}
+                        aria-describedby="pwdnote"
+                        onFocus={() => setPasswordFocus(true)}
+                        onBlur={() => setPasswordFocus(false)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="confirm-password">
+                        Confirm password:
+                    </label>
+                    <input
+                        type="password"
+                        id="confirm-password"
+                        onChange={(event) => setPassword(event.target.value)}
+                        required
+                        aria-invalid={validPassword ? "false" : "true"}
+                        aria-describedby="confirmnote"
+                        onFocus={() => setPasswordFocus(true)}
+                        onBlur={() => setPasswordFocus(false)}
+                    />
+                </div>
             </form>
         </section>
     )
