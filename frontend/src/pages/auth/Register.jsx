@@ -1,9 +1,10 @@
 import { useRef, useState, useEffect } from 'react';
+import api from '../../services/api';
 
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-
+const REGISTER_URL = '/api/v1/users/register';
 
 function Register() {
     const userRef = useRef();
@@ -57,7 +58,28 @@ function Register() {
             setErrorMessage('Invalid entry');
             return;
         }
-        setSuccess(true);
+        try {
+            const response = await api.post(
+                REGISTER_URL,
+                JSON.stringify({ username: user, password }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            console.log(response.data);
+            console.log(response.accessToken);
+            setSuccess(true);
+        } catch (error) {
+            if (!error?.response) {
+                setErrorMessage('No Server Response');
+            } else if (error.response?.status === 409) {
+                setErrorMessage('Username Taken')
+            } else {
+                setErrorMessage('Registration Failed')
+            }
+            errorRef.current.focus();
+        }
     }
 
     return (
