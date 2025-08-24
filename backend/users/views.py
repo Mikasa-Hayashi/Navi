@@ -2,8 +2,16 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
+from rest_framework.views import APIView
+from .serializers import UserSerializer
 
 # Create your views here.
+class RegisterUser(APIView):
+    def post(self, request):
+        serializer = UserSerializer(request.data)
+        print(serializer.data)
+
+
 def register_user(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
