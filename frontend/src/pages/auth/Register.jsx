@@ -49,11 +49,21 @@ function Register() {
         setErrorMessage('');
     }, [user, password, matchPassword])
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const v1 = USER_REGEX.test(user);
+        const v2 = PASSWORD_REGEX.test(password);
+        if (!v1 || !v2) {
+            setErrorMessage('Invalid entry');
+            return;
+        }
+    }
+
     return (
         <section>
             <p ref={errorRef} className={errorMessage ? "error-message" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             <h1>Sign up</h1>
-            <form >
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="username">
                         Username:
@@ -105,6 +115,12 @@ function Register() {
                     Sign Up
                 </button>
             </form>
+            <p>
+                Have an account?<br />
+                <span>
+                    <a href="#">Sign In</a>
+                </span>
+            </p>
         </section>
     )
 }
