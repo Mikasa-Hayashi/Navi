@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from 'react';
 
 
-const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3, 23}$/;
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8, 24}$/;
+const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 
 function Register() {
@@ -41,6 +41,7 @@ function Register() {
         console.log(password);
         setValidPassword(result);
         const match = password === matchPassword;
+        console.log(match);
         setValidMatch(match);
     }, [password, matchPassword])
 
@@ -92,7 +93,7 @@ function Register() {
                     <input
                         type="password"
                         id="confirm-password"
-                        onChange={(event) => setPassword(event.target.value)}
+                        onChange={(event) => setMatchPassword(event.target.value)}
                         required
                         aria-invalid={validPassword ? "false" : "true"}
                         aria-describedby="confirmnote"
