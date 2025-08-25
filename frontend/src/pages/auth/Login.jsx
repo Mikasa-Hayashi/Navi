@@ -38,11 +38,21 @@ function Login() {
             console.log(JSON.stringify(response?.data));
             const accessToken = response?.data?.accessToken;
             console.log(accessToken);
+            setAuth({ username, password, accessToken });
             setUsername('');
             setPassword('');
             setSuccess(true);
         } catch (error) {
-
+            if (!error?.response) {
+                setErrorMessage('No Server Response');
+            } else if (error.response?.status === 400) {
+                setErrorMessage('Missing Username or Password');
+            } else if (error.response?.status === 401) {
+                setErrorMessage('Unauthorized');
+            } else {
+                setErrorMessage('Login Failed');
+            }
+            errorRef.current.focus();
         }
     }
 
