@@ -45,7 +45,14 @@ function Login() {
                         required
                     />
                 </div>
+                <button>Sign In</button>
             </form>
+            <p>
+                Need an account?<br />
+                <span>
+                    <a href="#">Sign Up</a>
+                </span>
+            </p>
         </section>
     )
 }
