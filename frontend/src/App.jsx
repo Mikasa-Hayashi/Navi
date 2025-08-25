@@ -7,6 +7,8 @@ import Settings from './pages/Settings'
 import { Routes, Route } from 'react-router-dom';
 import BottomNavBar from './components/BottomNavBar';
 import Register from './pages/auth/Register';
+import Login from './pages/auth/Login';
+
 
 
 function App() {
