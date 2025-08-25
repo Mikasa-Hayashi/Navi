@@ -10,6 +10,14 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState('');
     const [success, setSuccess] = useState(false);
 
+    useEffect(() => {
+        userRef.current.focus();
+    }, [])
+
+    useEffect(() => {
+        setErrorMessage('');
+    }, [username, password])
+
     return (
         <div></div>
     )
