@@ -1,7 +1,12 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
+import AuthContext from '../../context/AuthProvider';
+import api from '../../services/api';
 
+const LOGIN_URL = '/api/v1/users/login/';
 
 function Login() {
+    const { setAuth } = useContext(AuthContext);
+
     const userRef = useRef();
     const errorRef = useRef();
     
@@ -20,7 +25,25 @@ function Login() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        setSuccess(true);
+
+        try {
+            const response = await api.post(
+                LOGIN_URL, 
+                JSON.stringify({username, password}),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
+            console.log(JSON.stringify(response?.data));
+            const accessToken = response?.data?.accessToken;
+            console.log(accessToken);
+            setUsername('');
+            setPassword('');
+            setSuccess(true);
+        } catch (error) {
+
+        }
     }
 
     return (
