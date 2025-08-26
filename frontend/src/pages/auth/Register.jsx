@@ -67,8 +67,6 @@ function Register() {
                     withCredentials: true
                 }
             );
-            console.log(response.data);
-            console.log(response.accessToken);
             setSuccess(true);
         } catch (error) {
             if (!error?.response) {
