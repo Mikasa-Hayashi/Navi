@@ -22,6 +22,11 @@ class RegisterUser(APIView):
                 raise AuthenticationFailed('User is deactivated')
             
             refresh = RefreshToken.for_user(user)
+            refresh.payload.update({
+                'user_id': user.id,
+                'username': user.username,
+                'date_joined': user.date_joined,
+            })
 
             return Response({
                 'refresh': str(refresh),
@@ -29,6 +34,10 @@ class RegisterUser(APIView):
             }, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
 
 
 def register_user(request):
