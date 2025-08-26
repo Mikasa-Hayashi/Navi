@@ -9,6 +9,7 @@ from rest_framework import status
 from .serializers import UserSerializer
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
 
 # Create your views here.
 class RegisterUser(APIView):
@@ -36,7 +37,38 @@ class RegisterUser(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class LoginUser(APIView):
+    permission_classes = [AllowAny]
 
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+
+        if username is None or password is None:
+            return Response({
+                'error': 'Username and password required',
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        user = authenticate(username=username, password=password)
+
+        if user is None:
+            raise AuthenticationFailed('Invalid credentials')
+        
+        if not user.is_active:
+            raise AuthenticationFailed('User is deactivated')
+    
+        refresh = RefreshToken.for_user(user)
+        refresh.payload.update({
+            'user_id': user.id,
+            'username': user.username,
+            'date_joined': user.date_joined,
+        })
+
+        return Response({
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }, status=status.HTTP_200_OK)
+        
 
 
 
