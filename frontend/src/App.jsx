@@ -8,8 +8,8 @@ import BottomNavBar from './components/BottomNavBar';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import Layout from './components/Layout';
+import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
-
 
 
 function App() {
@@ -23,8 +23,10 @@ function App() {
         <Route path="login" element={<Login />} />
 
         {/* private routes */}
-        <Route path="chat" element={<Chat />} />
-        <Route path="settings" element={<Settings />} />
+        <Route element={<RequireAuth />} >
+          <Route path="chat" element={<Chat />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
 
         {/* other */}
         {/* <Route path="*" element={<Missing />} /> */}
