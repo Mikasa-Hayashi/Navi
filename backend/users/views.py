@@ -61,7 +61,7 @@ class LoginUser(APIView):
         refresh.payload.update({
             'user_id': user.id,
             'username': user.username,
-            'date_joined': user.date_joined,
+            'date_joined': user.date_joined.isoformat(),
         })
 
         return Response({
