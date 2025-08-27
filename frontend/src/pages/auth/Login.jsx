@@ -35,9 +35,8 @@ function Login() {
                     withCredentials: true
                 }
             );
-            console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.accessToken;
-            console.log(accessToken);
+            const accessToken = response?.data?.access; 
+            // roles
             setAuth({ username, password, accessToken });
             setUsername('');
             setPassword('');
