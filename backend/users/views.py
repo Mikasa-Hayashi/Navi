@@ -9,10 +9,11 @@ from rest_framework import status
 from .serializers import UserSerializer
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.exceptions import InvalidToken
 from django.contrib.auth import authenticate
 
 # Create your views here.
-class RegisterUser(APIView):
+class RegistrationView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -37,7 +38,7 @@ class RegisterUser(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class LoginUser(APIView):
+class LoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -69,6 +70,33 @@ class LoginUser(APIView):
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
         
+
+class LogoutView(APIView):
+    pass
+
+
+class CookieTokenRefreshView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        refresh_token = request.COOKIES.get('refresh_token')
+        if refresh_token is None:
+            return Response({'error': 'Refresh token not provided;'}, status=status.HTTP_401_UNAUTHORIZED)
+        try:
+            refresh = RefreshToken(refresh_token)
+            access_token = str(refresh.access_token)
+
+            response = Response(status=status.Htttp_200_OK)
+            response.set_cookie(
+                key='access',
+                value=access_token,
+                httponly=True,
+                secure=True,
+                samesite='None',
+            )
+            return response
+        except InvalidToken:
+            return Response({'error': 'Invalid refresh token'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 
