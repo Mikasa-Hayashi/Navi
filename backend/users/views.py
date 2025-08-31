@@ -64,11 +64,26 @@ class LoginView(APIView):
             'username': user.username,
             'date_joined': user.date_joined.isoformat(),
         })
+        access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
 
-        return Response({
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        }, status=status.HTTP_200_OK)
+        response = Response(status=status.http_200_OK)
+        response.set_cookie(
+            key='access_token',
+            value=access_token,
+            httponly=True,
+            secure=True,
+            samesite='None',
+        )
+        response.set_cookie(
+            key='refresh_token',
+            value=refresh_token,
+            httponly=True,
+            secure=True,
+            samesite='None',
+        )
+
+        return response
         
 
 class LogoutView(APIView):
@@ -79,6 +94,7 @@ class CookieTokenRefreshView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
+        print(request.COOKIES)
         refresh_token = request.COOKIES.get('refresh_token')
         if refresh_token is None:
             return Response({'error': 'Refresh token not provided;'}, status=status.HTTP_401_UNAUTHORIZED)
