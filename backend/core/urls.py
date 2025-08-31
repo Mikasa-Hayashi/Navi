@@ -24,7 +24,7 @@ urlpatterns = [
     path('api/v1/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     # path('', RedirectView.as_view(url='/chat/', permanent=False)),
     # path('users/', include('users.urls')),
     # path('chat/', include('chat.urls')),
