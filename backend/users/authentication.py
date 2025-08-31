@@ -9,13 +9,11 @@ class CookieJWTAuthentication(JWTAuthentication):
             return None
         try:
             validated_token = self.get_validated_token(raw_token)
-        except AuthenticationFailed as e:
-            raise AuthenticationFailed(f' Invalid token: {str(e)}')
+        except AuthenticationFailed:
+            return None
         
-        try: 
-            user = self.get_user(validated_token)
-        except AuthenticationFailed as e:
-            raise AuthenticationFailed(f'Error retrieving user: {str(e)}')
+        user = self.get_user(validated_token)
+        
         # csrf enforcement can be added here if needed
         return user, validated_token
         
