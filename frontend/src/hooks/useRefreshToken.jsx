@@ -2,17 +2,15 @@ import api from '../services/api';
 import useAuth from './useAuth';
 
 const useRefreshToken = () => {
-    const { setAuth } = useAuth();
+    const { auth, setAuth } = useAuth();
     const refresh = async () => {
-        const response = await api.get('/api/token/refresh', {
-            WithCredentials: true
+        const response = await api.post('/api/v1/users/token/refresh', {}, {
+            withCredentials: true
         });
         setAuth(prev => {
-            console.log(JSON.stringify(prev));
-            console.log(response.data.access);
-            return { ...prev, accessToken: response.data.access };
+            return { ...prev, accessToken: response.data.accessToken };
         });
-        return response.data.access;
+        return response.data.accessToken;
     }
     return refresh;
 }
