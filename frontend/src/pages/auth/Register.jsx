@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import api from '../../services/api';
+import axios from '../../api/axios';
 
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -59,7 +59,7 @@ function Register() {
             return;
         }
         try {
-            const response = await api.post(
+            const response = await axios.post(
                 REGISTER_URL,
                 JSON.stringify({ username: user, password }),
                 {

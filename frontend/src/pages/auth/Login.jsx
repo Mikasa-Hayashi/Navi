@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import api from '../../services/api';
+import axios from '../../api/axios';
 import useAuth from '../../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
@@ -31,7 +31,7 @@ function Login() {
         event.preventDefault();
 
         try {
-            const response = await api.post(
+            const response = await axios.post(
                 LOGIN_URL, 
                 JSON.stringify({username, password}),
                 {
