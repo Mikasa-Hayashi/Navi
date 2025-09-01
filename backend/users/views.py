@@ -102,7 +102,6 @@ class CookieTokenRefreshView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        print(request.COOKIES)
         refresh_token = request.COOKIES.get('refreshToken')
         if refresh_token is None:
             return Response({'error': 'Refresh token not provided;'}, status=status.HTTP_401_UNAUTHORIZED)
@@ -110,7 +109,7 @@ class CookieTokenRefreshView(APIView):
             refresh = RefreshToken(refresh_token)
 
             access_token = str(refresh.access_token)
-            
+
             return Response({
                 'accessToken': access_token,
             }, status=status.HTTP_200_OK)
