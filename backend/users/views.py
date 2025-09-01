@@ -108,17 +108,12 @@ class CookieTokenRefreshView(APIView):
             return Response({'error': 'Refresh token not provided;'}, status=status.HTTP_401_UNAUTHORIZED)
         try:
             refresh = RefreshToken(refresh_token)
-            access_token = str(refresh.access_token)
 
-            response = Response(status=status.HTTP_200_OK)
-            response.set_cookie(
-                key='accessToken',
-                value=access_token,
-                httponly=True,
-                secure=True,
-                samesite='None',
-            )
-            return response
+            access_token = str(refresh.access_token)
+            
+            return Response({
+                'accessToken': access_token,
+            }, status=status.HTTP_200_OK)
         except InvalidToken:
             return Response({'error': 'Invalid refresh token'}, status=status.HTTP_401_UNAUTHORIZED)
 
