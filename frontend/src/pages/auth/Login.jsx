@@ -39,7 +39,8 @@ function Login() {
                     withCredentials: true
                 }
             );
-            const accessToken = response?.data?.access; 
+            const accessToken = response?.data?.accessToken;  
+            
             // roles
             setAuth({ username, password, accessToken });
             setUsername('');
