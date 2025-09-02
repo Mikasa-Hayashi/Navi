@@ -6,7 +6,7 @@ import App from './App.jsx'
 import { AuthProvider } from './context/AuthProvider';
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <BrowserRouter>
       <AuthProvider>
         <Routes>
@@ -14,5 +14,5 @@ createRoot(document.getElementById('root')).render(
         </Routes>
       </AuthProvider>
     </BrowserRouter>
-  </StrictMode>,
+  // </StrictMode>,
 )
