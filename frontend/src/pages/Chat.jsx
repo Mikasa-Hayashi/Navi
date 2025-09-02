@@ -1,11 +1,38 @@
 import ConversationItem from '../components/ConversationItem';
+import useAuth from '../hooks/useAuth';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Chat() {
-    const conversations = [
-        {id: 1, title: 'Navi'},
-        {id: 2, title: 'Jade'},
-        {id: 3, title: 'Joi'},
-    ];
+    const { auth } = useAuth();
+    const axiosPrivate = useAxiosPrivate();
+    const [conversations, setConversations] = useState([]);
+    const navigate = useNavigate();
+    const location = useLocation();
+    // const conversations = [
+    //     {id: 1, title: 'Navi'},
+    //     {id: 2, title: 'Jade'},
+    //     {id: 3, title: 'Joi'},
+    // ];
+
+    useEffect(() => {
+        const fetchConversations = async () => {
+            try {
+                const response = await axiosPrivate.get('/api/v1/chat/', {
+                    'user': auth?.username
+                });
+                setConversations(response.data);
+            } catch (error) {
+                console.error(error);
+                navigate('/login', { state: { from: location }, replace: true });
+            }
+        }
+
+        fetchConversations();
+    }, [])
+
     return (
         <div className="chat-page">
             <div className="conversation-list">
@@ -13,6 +40,7 @@ function Chat() {
                     <ConversationItem conversation={conversation} key={conversation.id} />
                 ))}
             </div>
+            <Link to="/settings">settings</Link>
         </div>
     );
 }
