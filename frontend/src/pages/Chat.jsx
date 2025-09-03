@@ -40,7 +40,6 @@ function Chat() {
                     <ConversationItem conversation={conversation} key={conversation.id} />
                 ))}
             </div>
-            <Link to="/settings">settings</Link>
         </div>
     );
 }
