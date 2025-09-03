@@ -10,6 +10,7 @@ import Login from './pages/auth/Login';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
+import PrivateLayout from './components/PrivateLayout';
 
 
 function App() {
@@ -24,8 +25,10 @@ function App() {
 
         {/* private routes */}
         <Route element={<RequireAuth />} >
-          <Route path="chat" element={<Chat />} />
-          <Route path="settings" element={<Settings />} />
+          <Route element={<PrivateLayout />} >
+            <Route path="chat" element={<Chat />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
         </Route>
 
         {/* other */}
