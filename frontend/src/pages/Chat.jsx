@@ -35,11 +35,11 @@ function Chat() {
 
     return (
         <div className="chat-page">
-            <div className="conversation-list">
+            <ul className="conversation-list">
                 {conversations.map(conversation => (
                     <ConversationItem conversation={conversation} key={conversation.id} />
                 ))}
-            </div>
+            </ul>
         </div>
     );
 }

@@ -11,6 +11,7 @@ import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
 import PrivateLayout from './components/PrivateLayout';
+import Conversation from './pages/Conversation';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route element={<RequireAuth />} >
           <Route element={<PrivateLayout />} >
             <Route path="chat" element={<Chat />} />
+            <Route path="chat/:uuid" element={<Conversation />} />
             <Route path="settings" element={<Settings />} />
           </Route>
         </Route>
