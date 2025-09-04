@@ -10,5 +10,5 @@ class ConversationSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = '__all__'
-        exclude = ['conversation_id']
+        fields = ['id', 'content', 'created_at', 'sender_type']
+        # exclude = ['conversation_id']
