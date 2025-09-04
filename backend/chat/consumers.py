@@ -2,6 +2,7 @@ import json
 from asyncio import sleep
 from .models import Conversation, Message
 from channels.generic.websocket import AsyncWebsocketConsumer
+from .serializers import MessageSerializer
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -18,7 +19,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         await self.send(text_data=json.dumps({
             'type': 'connection_established',
-            'message': 'Hello, my creator! You are connected now!',
         }))
     
 
@@ -31,28 +31,32 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         text_data_json = json.loads(text_data)
-        message = text_data_json['message']
-        await self.save_message(message, 'user')
+        message_content = text_data_json['message']
+        message = await self.save_message(message_content, 'user')
+        serializer = MessageSerializer(message)
 
+        # serialize message to send to WebSocket
         await self.send(text_data=json.dumps({
-                'type': 'message',
-                'message': message,
-            }))
+            'type': 'message',
+            'message': serializer.data,
+        }))
         
         await self.channel_layer.group_send(self.group_name, {
             'consumer': self.channel_name,
             'type': 'chat_message',
-            'message': message,
+            'message': serializer.data,
         })
 
         await sleep(2)
 
         companion_message = f'I will be able to answer to this soon: {message}'
-        await self.save_message(companion_message, 'companion')
+        message = await self.save_message(companion_message, 'companion')
+        serializer = MessageSerializer(message)
+
         await self.channel_layer.group_send(self.group_name, {
             'consumer': 'other_consumer',
             'type': 'chat_message',
-            'message': companion_message,
+            'message': serializer.data,
         })
 
 
@@ -67,10 +71,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def save_message(self, content, sender_type):
         try:
             conversation = await Conversation.objects.aget(id=self.conversation_id)
-            await Message.objects.acreate(
+            message = await Message.objects.acreate(
                 content=content,
                 sender_type=sender_type,
                 conversation_id=conversation,
             )
+            return message
         except Exception as e:
             print(f'Can not save message to database: {e}')
