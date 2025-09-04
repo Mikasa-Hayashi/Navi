@@ -11,3 +11,4 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
+        exclude = ['conversation_id']
