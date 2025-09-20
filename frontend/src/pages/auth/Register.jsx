@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from '../../api/axios';
 
 
@@ -81,79 +82,81 @@ function Register() {
     }
 
     return (
-        <>
-            {success ? (
-                <section>
-                    <h1>Success!</h1>
-                    <p>
-                        <a href="#">Sign In</a>
-                    </p>
-                </section>
-            ) : (
-                <section>
-                    <p ref={errorRef} className={errorMessage ? "error-message" : "offscreen"} aria-live="assertive">{errorMessage}</p>
-                    <h1>Sign up</h1>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label htmlFor="username">
-                                Username:
-                            </label>
-                            <input
-                                type="text"
-                                id="username"
-                                ref={userRef}
-                                autoComplete="off"
-                                onChange={(event) => setUser(event.target.value)}
-                                required
-                                aria-invalid={validName ? "false" : "true"}
-                                aria-describedby="uidnote"
-                                onFocus={() => setUserFocus(true)}
-                                onBlur={() => setUserFocus(false)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="password">
-                                Password:
-                            </label>
-                            <input
-                                type="password"
-                                id="password"
-                                onChange={(event) => setPassword(event.target.value)}
-                                required
-                                aria-invalid={validPassword ? "false" : "true"}
-                                aria-describedby="pwdnote"
-                                onFocus={() => setPasswordFocus(true)}
-                                onBlur={() => setPasswordFocus(false)}
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="confirm-password">
-                                Confirm password:
-                            </label>
-                            <input
-                                type="password"
-                                id="confirm-password"
-                                onChange={(event) => setMatchPassword(event.target.value)}
-                                required
-                                aria-invalid={validPassword ? "false" : "true"}
-                                aria-describedby="confirmnote"
-                                onFocus={() => setMatchFocus(true)}
-                                onBlur={() => setMatchFocus(false)}
-                            />
-                        </div>
-                        <button disabled={!validName || !validPassword || !validMatch ? true : false}>
-                            Sign Up
-                        </button>
-                    </form>
-                    <p>
-                        Have an account?<br />
-                        <span>
-                            <a href="#">Sign In</a>
-                        </span>
-                    </p>
-                </section>
-            )}
-        </>
+        <section>
+            {/* Register header */}
+            <div>
+                <h1 className="form-header register-form">Sign up</h1>
+                <p ref={errorRef} className={errorMessage ? "error-message" : "offscreen"} aria-live="assertive">{errorMessage}</p>
+            </div>
+
+            {/* Register form */}
+            <form onSubmit={handleSubmit} className="form register-form">
+                {/* Username */}
+                <div className="form-group">
+                    <label htmlFor="username" className="form-label">Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        className="form-input"
+                        ref={userRef}
+                        autoComplete="off"
+                        onChange={(event) => setUser(event.target.value)}
+                        required
+                        aria-invalid={validName ? "false" : "true"}
+                        aria-describedby="uidnote"
+                        onFocus={() => setUserFocus(true)}
+                        onBlur={() => setUserFocus(false)}
+                    />
+                </div>
+
+                {/* Password */}
+                <div className="form-group">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        className="form-input"
+                        onChange={(event) => setPassword(event.target.value)}
+                        required
+                        aria-invalid={validPassword ? "false" : "true"}
+                        aria-describedby="pwdnote"
+                        onFocus={() => setPasswordFocus(true)}
+                        onBlur={() => setPasswordFocus(false)}
+                    />
+                </div>
+
+                {/* Confirm password */}
+                <div className="form-group">
+                    <label htmlFor="confirm-password" className="form-label">Confirm password</label>
+                    <input
+                        type="password"
+                        id="confirm-password"
+                        className="form-input"
+                        onChange={(event) => setMatchPassword(event.target.value)}
+                        required
+                        aria-invalid={validPassword ? "false" : "true"}
+                        aria-describedby="confirmnote"
+                        onFocus={() => setMatchFocus(true)}
+                        onBlur={() => setMatchFocus(false)}
+                    />
+                </div>
+
+                {/* Submit */}
+                <div className="form-submit register-submit">
+                    <button type="submit" className="form-submit-button" disabled={!validName || !validPassword || !validMatch ? true : false}>
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+
+            {/* Register footer */}
+            <div className="form-footer register-footer">
+                <p className="form-text login-text">
+                    Already have an account?
+                    <Link to="#" className="form-link">Sign In</Link>
+                </p>
+            </div>
+        </section>
     )
 }
 
