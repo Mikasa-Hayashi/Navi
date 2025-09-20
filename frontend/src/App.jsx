@@ -5,8 +5,8 @@ import viteLogo from '/vite.svg';
 import Chat from './pages/Chat';
 import Settings from './pages/Settings'
 import BottomNavBar from './components/BottomNavBar';
-import Register from './pages/auth/Register';
-import Login from './pages/auth/Login';
+import Register from './pages/Register';
+import Login from './pages/Login';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';

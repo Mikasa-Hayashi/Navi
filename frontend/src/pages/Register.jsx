@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import axios from '../../api/axios';
+import axios from '../api/axios';
 
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
@@ -85,7 +85,7 @@ function Register() {
         <section>
             {/* Register header */}
             <div>
-                <h1 className="form-header register-form">Sign up</h1>
+                <h1 className="form-header register-form">Sign Up</h1>
                 <p ref={errorRef} className={errorMessage ? "error-message" : "offscreen"} aria-live="assertive">{errorMessage}</p>
             </div>
 
@@ -98,6 +98,7 @@ function Register() {
                         type="text"
                         id="username"
                         className="form-input"
+                        placeholder="Username"
                         ref={userRef}
                         autoComplete="off"
                         onChange={(event) => setUser(event.target.value)}
@@ -116,6 +117,7 @@ function Register() {
                         type="password"
                         id="password"
                         className="form-input"
+                        placeholder="Password"
                         onChange={(event) => setPassword(event.target.value)}
                         required
                         aria-invalid={validPassword ? "false" : "true"}
@@ -132,6 +134,7 @@ function Register() {
                         type="password"
                         id="confirm-password"
                         className="form-input"
+                        placeholder="Confirm password"
                         onChange={(event) => setMatchPassword(event.target.value)}
                         required
                         aria-invalid={validPassword ? "false" : "true"}
@@ -153,7 +156,7 @@ function Register() {
             <div className="form-footer register-footer">
                 <p className="form-text login-text">
                     Already have an account?
-                    <Link to="#" className="form-link">Sign In</Link>
+                    <Link to="/login" className="form-link">Sign In</Link>
                 </p>
             </div>
         </section>

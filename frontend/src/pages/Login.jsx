@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
-import axios from '../../api/axios';
-import useAuth from '../../hooks/useAuth';
+import axios from '../api/axios';
+import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 // import '../css/Login.css';
 
@@ -124,7 +124,7 @@ function Login() {
             <div className="form-footer login-footer">
                 <p className="form-text register-text">
                     Don't have an account?
-                    <Link to="#" className="form-link">Sign Up</Link>
+                    <Link to="/register" className="form-link">Sign Up</Link>
                 </p>
             </div>
         </section>
