@@ -111,7 +111,7 @@ function Login() {
 
                 {/* Forgot password */}
                 <div className="form-group form-forgot-password">
-                    <Link to="#" className="form-link">Forgot password?</Link>
+                    <Link to="/forgot-password" className="form-link">Forgot password?</Link>
                 </div>
                 
                 {/* Submit */}

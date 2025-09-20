@@ -7,6 +7,7 @@ import Settings from './pages/Settings'
 import BottomNavBar from './components/BottomNavBar';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
 import { Routes, Route } from 'react-router-dom';
@@ -23,6 +24,7 @@ function App() {
         {/* public routes */}
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
 
         {/* private routes */}
         <Route element={<RequireAuth />} >
