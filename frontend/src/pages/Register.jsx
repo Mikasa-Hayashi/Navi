@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import useAuth from '../hooks/useAuth';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from '../api/axios';
 
@@ -8,6 +9,10 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 const REGISTER_URL = '/api/v1/users/register/';
 
 function Register() {
+    const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
+
     const userRef = useRef();
     const errorRef = useRef();
 
@@ -68,7 +73,14 @@ function Register() {
                     withCredentials: true
                 }
             );
+            const accessToken = response?.data?.accessToken;
+
             setSuccess(true);
+            setAuth({ username: user, password, accessToken });
+            setUser('');
+            setPassword('');
+            setMatchPassword('');
+            navigate('/chat', { replace: true });
         } catch (error) {
             if (!error?.response) {
                 setErrorMessage('No Server Response');
