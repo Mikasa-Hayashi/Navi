@@ -1,8 +1,19 @@
 from django.shortcuts import render, redirect
 from .forms import CompanionCreationForm
 from chat.models import Conversation
+from .models import Companion
+from .serializers import CompanionSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 # Create your views here.
+class CompanionDetailView(APIView):
+    def get(self, request):
+        companion = Conversation.objects.filter(companion_id=request.companion_id)
+        serializer = CompanionSerializer(companion)
+        return Response(serializer.data)
+
+
 def create_companion(request):
     if request.method == 'POST':
         form = CompanionCreationForm(request.POST)
