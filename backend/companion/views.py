@@ -8,8 +8,9 @@ from rest_framework.response import Response
 
 # Create your views here.
 class CompanionDetailView(APIView):
-    def get(self, request):
-        companion = Conversation.objects.filter(companion_id=request.companion_id)
+    def get(self, request, *args, **kwargs):
+        companion_id = kwargs.get('companion_id')
+        companion = Companion.objects.get(id=companion_id)      
         serializer = CompanionSerializer(companion)
         return Response(serializer.data)
 
