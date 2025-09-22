@@ -30,9 +30,9 @@ function App() {
         <Route element={<RequireAuth />} >
           <Route element={<PrivateLayout />} >
             <Route path="chat" element={<Chat />} />
-            <Route path="chat/:uuid" element={<Conversation />} />
             <Route path="settings" element={<Settings />} />
           </Route>
+          <Route path="chat/:uuid" element={<Conversation />} />
         </Route>
 
         {/* other */}
