@@ -21,7 +21,6 @@ function Conversation() {
         const fetchMessages = async () => {
             try {
                 const response = await axiosPrivate.get(`/api/v1/chat/${conversationId}`, {
-                    'conversation_id': conversationId
                 });
                 console.log(response.data);
                 setMessages(response.data);
