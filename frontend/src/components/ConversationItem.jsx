@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import '../css/ConversationItem.css';
 
 function ConversationItem({conversation}) {
     const axiosPrivate = useAxiosPrivate();
