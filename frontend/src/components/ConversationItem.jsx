@@ -22,7 +22,7 @@ function ConversationItem({conversation}) {
         <li className="conversation-item">
             <Link to={`/chat/${conversation.id}`}>
                 <div className="conversation-avatar">
-                    {/* <img src={companion.avatar} /> */}
+                    <img src={companion?.avatar} />
                 </div>
                 <div className="conversation-title">
                     <h3 className="conversation-title">{conversation.title}</h3>
