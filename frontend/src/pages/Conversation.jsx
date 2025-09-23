@@ -6,6 +6,7 @@ import useAuth from '../hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import SendMessageBar from '../components/SendMessageBar';
+import '../css/Conversation.css';
 
 function Conversation() {
     const params = useParams();
@@ -16,6 +17,15 @@ function Conversation() {
     const navigate = useNavigate();
     const location = useLocation();
     const chatSocket = useRef(null);
+    const messageEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages])
 
     useEffect(() => {
         const fetchMessages = async () => {
@@ -66,10 +76,11 @@ function Conversation() {
             {/* <h2>Conversation { params.uuid }</h2> */}
             <div className="message-container">
                 {messages.map(message => (
-                    <Message message={message} key={message.id} />
+                    <Message className="message" message={message} key={message.id} />
                 ))}
+                <div ref={messageEndRef} />
             </div>
-            <SendMessageBar onSendMessage={sendMessage} companionName="Companion" />
+            <SendMessageBar className="send-message-bar" onSendMessage={sendMessage} companionName="Companion" />
         </div>
     )
 }
