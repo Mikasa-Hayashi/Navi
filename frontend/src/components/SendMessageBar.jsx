@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import '../css/SendMessageBar.css';
 
 function SendMessageBar({ onSendMessage, companionName}) {
     const [message, setMessage] = useState('');
@@ -17,20 +18,19 @@ function SendMessageBar({ onSendMessage, companionName}) {
 
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <input 
-                    type="text" 
-                    name="message" 
-                    placeholder={`Type to ${companionName}`}
-                    required
-                    value={message}
-                    onChange={(event) => setMessage(event.target.value)}
-                    autoComplete="off"
-                    ref={messageBarRef}
-                />
-                <button type="submit">Send</button>
-            </div>
+        <form className="send-message-bar-form" onSubmit={handleSubmit}>
+            <textarea 
+                className="send-message-input"
+                name="message" 
+                id="message" 
+                placeholder={`Type to ${companionName}`} 
+                value={message} 
+                onChange={(event) => setMessage(event.target.value)}
+                ref={messageBarRef}
+                autoComplete="off"
+                required
+            ></textarea>
+            <button className="send-message-button" type="submit">Send</button>
         </form>
     )
 }
