@@ -21,7 +21,7 @@ function ConversationItem({conversation}) {
 
     return (
         <li className="conversation-item">
-            <Link to={`/chat/${conversation.id}`}>
+            <Link className="conversation-item-link" to={`/chat/${conversation.id}`}>
                 <div className="conversation-avatar">
                     <img src={companion?.avatar} />
                 </div>
@@ -29,10 +29,14 @@ function ConversationItem({conversation}) {
                     <h3 className="conversation-title">{conversation.title}</h3>
                 </div>
                 <div className="conversation-last-message">
-
+                    <p className="conversation-last-message-text">
+                        {conversation.last_message ? conversation.last_message.content : 'No messages yet. Say hi!'}
+                    </p>
                 </div>
                 <div className="conversation-timestamp">
-
+                    <span className="conversation-timestamp-text">
+                        {conversation.last_message ? new Date(conversation.last_message.timestamp).toLocaleString() : ''}
+                    </span>
                 </div>
             </Link>
         </li>

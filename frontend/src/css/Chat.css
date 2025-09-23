@@ -1,0 +1,8 @@
+.conversation-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 100%;          /* заполняет родителя */
+  box-sizing: border-box;
+  overflow-x: hidden;   /* убираем горизонтальный скрол */
+}
