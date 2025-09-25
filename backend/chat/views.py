@@ -6,20 +6,36 @@ from .models import Conversation, Message
 from .serializers import ConversationSerializer, MessageSerializer
 
 # Create your views here.
-class ConversationList(APIView):
+class ConversationListView(APIView):
     def get(self, request):
         conversations = Conversation.objects.filter(user_id=request.user)
         serializer = ConversationSerializer(conversations, many=True)
         return Response(serializer.data)
 
+class ConversationDetailView(APIView):
+    def get(self, request, *args, **kwargs):
+        conversation_id = kwargs.get('conversation_id')
+        conversation = Conversation.objects.get(id=conversation_id)
+        serializer = ConversationSerializer(conversation)
+        return Response(serializer.data)
 
-class MessageList(APIView):
+class MessageListView(APIView):
     def get(self, request, *args, **kwargs):
         conversation_id = kwargs.get('conversation_id')
         conversation = Conversation.objects.get(id=conversation_id)
         messages = conversation.messages.all()
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)
+    
+class MessageDetailView(APIView):
+    def get(self, request, *args, **kwargs):
+        conversation_id = kwargs.get('conversation_id')
+        message_id = kwargs.get('message_id')
+        conversation = Conversation.objects.get(id=conversation_id)
+        message = conversation.messages.get(id=message_id)
+        serializer = MessageSerializer(message)
+        return Response(serializer.data)
+        
 
 
 @login_required

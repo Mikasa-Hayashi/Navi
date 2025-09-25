@@ -4,7 +4,8 @@ from . import views
 app_name = 'chat'
 
 urlpatterns = [
-    path('', views.ConversationList.as_view(), name='conversation_list'),
-    path('<uuid:conversation_id>', views.MessageList.as_view(), name='conversation_detail'),
-    # path('<uuid:conversation_id>/send_message', views.send_message, name='send_message'),
+    path('', views.ConversationListView.as_view(), name='conversation_list'),
+    path('<uuid:conversation_id>/', views.ConversationDetailView.as_view(), name='conversation_detail'),
+    path('<uuid:conversation_id>/messages/', views.MessageListView.as_view(), name='message_list'),
+    path('<uuid:conversation_id>/messages/<int:message_id>', views.MessageDetailView.as_view(), name='message_detail'),
 ]
