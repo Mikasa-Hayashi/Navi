@@ -21,7 +21,7 @@ function Chat() {
     useEffect(() => {
         const fetchConversations = async () => {
             try {
-                const response = await axiosPrivate.get('/api/v1/chat/', {
+                const response = await axiosPrivate.get('/api/v1/conversations/', {
                     'user': auth?.username
                 });
                 setConversations(response.data);

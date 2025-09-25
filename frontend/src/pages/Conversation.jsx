@@ -30,7 +30,7 @@ function Conversation() {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const response = await axiosPrivate.get(`/api/v1/chat/${conversationId}`, {
+                const response = await axiosPrivate.get(`/api/v1/conversations/${conversationId}`, {
                 });
                 console.log(response.data);
                 setMessages(response.data);
@@ -44,7 +44,7 @@ function Conversation() {
     }, [])
 
     useEffect(() => {
-        const url = `ws://localhost:8000/ws/chat/${conversationId}/`;
+        const url = `ws://localhost:8000/ws/conversations/${conversationId}/`;
         chatSocket.current = new WebSocket(url);
 
         chatSocket.current.onmessage = function(event) {
