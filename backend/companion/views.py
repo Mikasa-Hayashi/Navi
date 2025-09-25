@@ -2,11 +2,19 @@ from django.shortcuts import render, redirect
 from .forms import CompanionCreationForm
 from chat.models import Conversation
 from .models import Companion
-from .serializers import CompanionSerializer
+from .serializers import CompanionSerializer, CompanionPreviewSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 # Create your views here.
+class CompanionListView(APIView):
+    def get(self, request):
+        owner_id = request.user.id
+        companions = Companion.objects.filter(owner_id=owner_id)
+        serializer = CompanionPreviewSerializer(companions, many=True) #short form
+        return Response(serializer.data)
+
+
 class CompanionDetailView(APIView):
     def get(self, request, *args, **kwargs):
         companion_id = kwargs.get('companion_id')
