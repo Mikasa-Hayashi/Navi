@@ -9,7 +9,7 @@ function ConversationItem({conversation}) {
     useEffect(() => {
         const fetchCompanion = async () => {
             try {
-                const response = await axiosPrivate.get(`api/v1/companion/${conversation.companion_id}`, {
+                const response = await axiosPrivate.get(`api/v1/companions/${conversation.companion_id}`, {
                 });
                 setCompanion(response.data);
             } catch (error) {
