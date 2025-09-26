@@ -22,8 +22,7 @@ class ConversationDetailView(APIView):
 class MessageListView(APIView):
     def get(self, request, *args, **kwargs):
         conversation_id = kwargs.get('conversation_id')
-        conversation = Conversation.objects.get(id=conversation_id)
-        messages = conversation.messages.all()
+        messages = Message.objects.filter(conversation_id=conversation_id)
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)
     
