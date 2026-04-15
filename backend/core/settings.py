@@ -25,6 +25,8 @@ PG_USER = os.getenv('PG_USER', default='')
 PG_PASSWORD = os.getenv('PG_PASSWORD', default='')
 PG_HOST = os.getenv('PG_HOST', default='')
 PG_PORT = os.getenv('PG_PORT', default='')
+REDIS_HOST = os.getenv('REDIS_HOST', default='127.0.0.1')
+REDIS_PORT = int(os.getenv('REDIS_PORT', default='6379'))
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -103,7 +105,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],
+            'hosts': [(REDIS_HOST, REDIS_PORT)],
         },
     },
 }
