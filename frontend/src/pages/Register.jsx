@@ -76,7 +76,7 @@ function Register() {
             const accessToken = response?.data?.accessToken;
 
             setSuccess(true);
-            setAuth({ username: user, password, accessToken });
+            setAuth({ username: user, accessToken });
             setUser('');
             setPassword('');
             setMatchPassword('');

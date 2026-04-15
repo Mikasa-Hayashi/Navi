@@ -19,6 +19,7 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [persist, setPersist] = useState(() => localStorage.getItem('persist') === 'true');
 
     useEffect(() => {
         userRef.current.focus();
@@ -28,13 +29,17 @@ function Login() {
         setErrorMessage('');
     }, [username, password])
 
+    useEffect(() => {
+        localStorage.setItem('persist', persist);
+    }, [persist]);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         try {
             const response = await axios.post(
                 LOGIN_URL, 
-                JSON.stringify({username, password}),
+                JSON.stringify({ username, password, rememberMe: persist }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -43,7 +48,7 @@ function Login() {
             const accessToken = response?.data?.accessToken;  
             
             // roles
-            setAuth({ username, password, accessToken });
+            setAuth({ username, accessToken });
             setUsername('');
             setPassword('');
             
@@ -105,8 +110,16 @@ function Login() {
 
                 {/* Remember me */}
                 <div className="form-group form-remember-me">
-                    <input type="checkbox" className="form-checkbox" />
-                    <label className="form-label">Remember me</label>
+                    <input
+                        id="remember-me"
+                        type="checkbox"
+                        className="form-checkbox"
+                        checked={persist}
+                        onChange={(event) => setPersist(event.target.checked)}
+                    />
+                    <label htmlFor="remember-me" className="form-label">
+                        Remember me
+                    </label>
                 </div>
 
                 {/* Forgot password */}

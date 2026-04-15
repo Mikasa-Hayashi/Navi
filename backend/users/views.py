@@ -11,6 +11,33 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.exceptions import InvalidToken
 from django.contrib.auth import authenticate
+from django.conf import settings
+
+
+REFRESH_COOKIE_NAME = 'refreshToken'
+REFRESH_COOKIE_MAX_AGE = 60 * 60 * 24 * 30  # 30 days
+
+
+def _is_secure_cookie():
+    return not settings.DEBUG
+
+
+def _same_site_policy():
+    return 'None' if _is_secure_cookie() else 'Lax'
+
+
+def _set_refresh_cookie(response, refresh_token, remember_me=False):
+    cookie_kwargs = {
+        'key': REFRESH_COOKIE_NAME,
+        'value': refresh_token,
+        'httponly': True,
+        'secure': _is_secure_cookie(),
+        'samesite': _same_site_policy(),
+        'path': '/',
+    }
+    if remember_me:
+        cookie_kwargs['max_age'] = REFRESH_COOKIE_MAX_AGE
+    response.set_cookie(**cookie_kwargs)
 
 # Create your views here.
 class RegistrationView(APIView):
@@ -37,13 +64,7 @@ class RegistrationView(APIView):
                 'accessToken': access_token,
             }, status=status.HTTP_201_CREATED)
 
-            response.set_cookie(
-                key='refreshToken',
-                value=refresh_token,
-                httponly=True,
-                secure=True,
-                samesite='None',
-            )
+            _set_refresh_cookie(response, refresh_token, remember_me=True)
 
             return response
         else:
@@ -56,6 +77,7 @@ class LoginView(APIView):
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
+        remember_me = bool(request.data.get('rememberMe', False))
 
         if username is None or password is None:
             return Response({
@@ -83,26 +105,29 @@ class LoginView(APIView):
             'accessToken': access_token,
         }, status=status.HTTP_200_OK)
 
-        response.set_cookie(
-            key='refreshToken',
-            value=refresh_token,
-            httponly=True,
-            secure=True,
-            samesite='None',
-        )
+        _set_refresh_cookie(response, refresh_token, remember_me=remember_me)
 
         return response
         
 
 class LogoutView(APIView):
-    pass
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        response = Response(status=status.HTTP_204_NO_CONTENT)
+        response.delete_cookie(
+            key=REFRESH_COOKIE_NAME,
+            path='/',
+            samesite=_same_site_policy(),
+        )
+        return response
 
 
 class CookieTokenRefreshView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        refresh_token = request.COOKIES.get('refreshToken')
+        refresh_token = request.COOKIES.get(REFRESH_COOKIE_NAME)
         if refresh_token is None:
             return Response({'error': 'Refresh token not provided;'}, status=status.HTTP_401_UNAUTHORIZED)
         try:

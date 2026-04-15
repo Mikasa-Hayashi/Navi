@@ -58,6 +58,24 @@ section {
   margin-bottom: 1rem;
 }
 
+.form-remember-me {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.form-checkbox {
+  width: 1rem;
+  height: 1rem;
+  accent-color: #8a7dff;
+  margin: 0;
+}
+
+.form-remember-me .form-label {
+  margin: 0;
+  cursor: pointer;
+}
+
 .form-label {
   font-size: 0.9rem;
   font-weight: 600;
@@ -135,6 +153,14 @@ section {
 .offscreen {
   position: absolute;
   left: -9999px;
+}
+
+.auth-loading {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  place-items: center;
+  color: #d4e0ff;
 }
 
 .chat-page,
