@@ -20,8 +20,10 @@ python -m venv .venv
 2. Установите зависимости:
 
 ```bash
-pip install django djangorestframework djangorestframework-simplejwt django-cors-headers channels daphne channels-redis python-dotenv psycopg2-binary
+pip install -r ../requirements.txt
 ```
+
+Файл зависимостей находится в корне проекта: `requirements.txt`.
 
 ## Настройка окружения
 
