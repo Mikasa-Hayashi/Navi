@@ -238,6 +238,17 @@ CORS_ALLOWED_ORIGINS = [
     # 'http://127.0.0.1',
     'http://127.0.0.1:5173',
 ]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://localhost:\d+$",
+    r"^http://127\.0\.0\.1:\d+$",
+]
 
 # CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
+# LLM settings
+LLM_PROVIDER = os.getenv('LLM_PROVIDER', 'ollama')
+LLM_MODEL = os.getenv('LLM_MODEL', 'qwen2.5:3b-instruct')
+LLM_BASE_URL = os.getenv('LLM_BASE_URL', 'http://127.0.0.1:11434')
+LLM_TIMEOUT_SECONDS = int(os.getenv('LLM_TIMEOUT_SECONDS', '30'))
+LLM_HISTORY_LIMIT = int(os.getenv('LLM_HISTORY_LIMIT', '12'))
