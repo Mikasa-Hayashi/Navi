@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
-
 function Settings() {
     return (
         <div className="settings-page">
-            <p>There will be settings page</p>
+            <div className="info-card">
+                <h2>Settings</h2>
+                <p>There will be settings page.</p>
+            </div>
         </div>
     );
 }

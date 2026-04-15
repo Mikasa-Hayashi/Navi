@@ -1,8 +1,11 @@
 
 function Companion() {
     return (
-        <div>
-            There will be companion page
+        <div className="settings-page">
+            <div className="info-card">
+                <h2>Companion</h2>
+                <p>There will be companion page.</p>
+            </div>
         </div>
     )
 }

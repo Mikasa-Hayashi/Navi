@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import '../css/SendMessageBar.css';
 
 function SendMessageBar({ onSendMessage, companionName}) {
     const [message, setMessage] = useState('');

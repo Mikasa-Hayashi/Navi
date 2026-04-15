@@ -6,7 +6,6 @@ import useAuth from '../hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import SendMessageBar from '../components/SendMessageBar';
-import '../css/Conversation.css';
 
 function Conversation() {
     const params = useParams();
