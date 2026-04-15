@@ -10,7 +10,7 @@ import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
 import Layout from './components/Layout';
 import RequireAuth from './components/RequireAuth';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import PrivateLayout from './components/PrivateLayout';
 import Conversation from './pages/Conversation';
 import Companion from './pages/Companion';
@@ -22,6 +22,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        <Route index element={<Navigate to="/login" replace />} />
         {/* public routes */}
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
@@ -38,7 +39,7 @@ function App() {
         </Route>
 
         {/* other */}
-        {/* <Route path="*" element={<Missing />} /> */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Route>
     </Routes>
   )
