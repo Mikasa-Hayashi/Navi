@@ -10,6 +10,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import PrivateLayout from './components/PrivateLayout';
 import Conversation from './pages/Conversation';
 import Companion from './pages/Companion';
+import Model from './pages/Model';
+import Shop from './pages/Shop';
 
 
 function App() {
@@ -26,7 +28,9 @@ function App() {
         <Route element={<RequireAuth />} >
           <Route element={<PrivateLayout />} > {/*with navbar */}
             <Route path="chat" element={<Chat />} />
+            <Route path="model" element={<Model />} />
             <Route path="companion" element={<Companion />} />
+            <Route path="shop" element={<Shop />} />
             <Route path="settings" element={<Settings />} />
           </Route>
           <Route path="chat/:uuid" element={<Conversation />} />

@@ -13,6 +13,8 @@ function Conversation() {
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
     const [messages, setMessages] = useState([]);
+    const [conversation, setConversation] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const chatSocket = useRef(null);
@@ -27,19 +29,21 @@ function Conversation() {
     }, [messages])
 
     useEffect(() => {
-        const fetchMessages = async () => {
+        const fetchConversationData = async () => {
             try {
-                const response = await axiosPrivate.get(`/api/v1/conversations/${conversationId}/messages/`, {
-                });
-                console.log(response.data);
-                setMessages(response.data);
+                const [conversationResponse, messagesResponse] = await Promise.all([
+                    axiosPrivate.get(`/api/v1/conversations/${conversationId}/`),
+                    axiosPrivate.get(`/api/v1/conversations/${conversationId}/messages/`),
+                ]);
+                setConversation(conversationResponse.data);
+                setMessages(messagesResponse.data);
             } catch (error) {
                 console.error(error);
                 navigate('/login', { state: { from: location }, replace: true });
             }
         };
 
-        fetchMessages();
+        fetchConversationData();
     }, [])
 
     useEffect(() => {
@@ -69,9 +73,32 @@ function Conversation() {
         }))
     }
 
+    const deleteChat = async () => {
+        if (!window.confirm('Delete this chat history and unpair this companion?')) {
+            return;
+        }
+
+        try {
+            await axiosPrivate.delete(`/api/v1/conversations/${conversationId}/`);
+            navigate('/chat', { replace: true });
+        } catch (error) {
+            console.error(error);
+            setErrorMessage(error?.response?.data?.detail || 'Could not delete chat');
+        }
+    };
+
     return (
         <div className="conversation-page">
-            <Link to="/chat">Back to chats</Link>
+            <div className="conversation-header">
+                <Link to="/chat">Back to chats</Link>
+                <div className="conversation-actions">
+                    <span className="conversation-companion-name">{conversation?.title || 'Conversation'}</span>
+                    <button className="danger-button" type="button" onClick={deleteChat}>
+                        Delete Chat
+                    </button>
+                </div>
+            </div>
+            {errorMessage ? <p className="error-message">{errorMessage}</p> : null}
             {/* <h2>Conversation { params.uuid }</h2> */}
             <div className="message-container">
                 {messages.map(message => (
@@ -79,7 +106,7 @@ function Conversation() {
                 ))}
                 <div ref={messageEndRef} />
             </div>
-            <SendMessageBar className="send-message-bar" onSendMessage={sendMessage} companionName="Companion" />
+            <SendMessageBar className="send-message-bar" onSendMessage={sendMessage} companionName={conversation?.title || 'Companion'} />
         </div>
     )
 }

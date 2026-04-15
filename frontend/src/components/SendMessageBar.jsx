@@ -16,6 +16,14 @@ function SendMessageBar({ onSendMessage, companionName}) {
         }
 
     }
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' && !event.ctrlKey) {
+            event.preventDefault();
+            handleSubmit(event);
+        }
+    };
+
     return (
         <form className="send-message-bar-form" onSubmit={handleSubmit}>
             <textarea 
@@ -25,6 +33,7 @@ function SendMessageBar({ onSendMessage, companionName}) {
                 placeholder={`Type to ${companionName}`} 
                 value={message} 
                 onChange={(event) => setMessage(event.target.value)}
+                onKeyDown={handleKeyDown}
                 ref={messageBarRef}
                 autoComplete="off"
                 required

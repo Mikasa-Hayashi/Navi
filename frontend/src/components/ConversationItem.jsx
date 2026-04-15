@@ -8,8 +8,7 @@ function ConversationItem({conversation}) {
     useEffect(() => {
         const fetchCompanion = async () => {
             try {
-                const response = await axiosPrivate.get(`api/v1/companions/${conversation.companion_id}`, {
-                });
+                const response = await axiosPrivate.get(`/api/v1/companions/${conversation.companion_id}`);
                 setCompanion(response.data);
             } catch (error) {
                 console.error(error);
@@ -22,7 +21,7 @@ function ConversationItem({conversation}) {
         <li className="conversation-item">
             <Link className="conversation-item-link" to={`/chat/${conversation.id}`}>
                 <div className="conversation-avatar">
-                    <img src={companion?.avatar} />
+                    <img src={companion?.avatar} alt={companion?.name || 'Companion avatar'} />
                 </div>
                 <div className="conversation-title">
                     <h3 className="conversation-title">{conversation.title}</h3>
