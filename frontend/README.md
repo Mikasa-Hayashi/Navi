@@ -1,12 +1,51 @@
-# React + Vite
+# Frontend (Navi)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Клиентская часть проекта на React + Vite.
 
-Currently, two official plugins are available:
+## Требования
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Node.js 18+
+- npm
 
-## Expanding the ESLint configuration
+## Установка
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+```
+
+## Запуск в режиме разработки
+
+```bash
+npm run dev
+```
+
+По умолчанию приложение доступно на `http://localhost:5173`.
+
+## Сборка
+
+```bash
+npm run build
+```
+
+## Предпросмотр production-сборки
+
+```bash
+npm run preview
+```
+
+## Линтинг
+
+```bash
+npm run lint
+```
+
+## Взаимодействие с бэкендом
+
+- Базовый URL API задан в `src/api/axios.js`: `http://localhost:8000`
+- Основные API-маршруты:
+  - `/api/v1/users/`
+  - `/api/v1/conversations/`
+  - `/api/v1/companions/`
+- WebSocket-чат использует адрес вида: `ws://localhost:8000/ws/chat/<conversation_id>/`
+
+Перед запуском фронтенда убедитесь, что сервер из `backend` запущен.
