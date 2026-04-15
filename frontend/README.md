@@ -19,6 +19,12 @@ npm install
 npm run dev
 ```
 
+или
+
+```bash
+npm run dev -- --host
+```
+
 По умолчанию приложение доступно на `http://localhost:5173`.
 
 ## Сборка

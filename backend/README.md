@@ -35,6 +35,11 @@ PG_USER=your_db_user
 PG_PASSWORD=your_db_password
 PG_HOST=localhost
 PG_PORT=5432
+LLM_PROVIDER=ollama
+LLM_MODEL=qwen2.5:3b-instruct
+LLM_BASE_URL=http://127.0.0.1:11434
+LLM_TIMEOUT_SECONDS=30
+LLM_HISTORY_LIMIT=12
 ```
 
 ## Миграции
@@ -53,6 +58,21 @@ python manage.py runserver
 ```
 
 Сервер будет доступен на `http://localhost:8000`.
+
+## LLM (AI-компаньон)
+
+Для бесплатной локальной модели используется Ollama.
+
+1. Установите Ollama: [https://ollama.com/download](https://ollama.com/download)
+2. Загрузите модель:
+
+```bash
+ollama pull qwen2.5:3b-instruct
+```
+
+3. Убедитесь, что Ollama запущена (по умолчанию `http://127.0.0.1:11434`).
+
+После этого WebSocket-чат будет генерировать ответы компаньона через LLM, а не через echo.
 
 ## Основные эндпоинты
 
