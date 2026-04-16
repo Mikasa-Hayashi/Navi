@@ -45,6 +45,31 @@ npm run preview
 npm run lint
 ```
 
+## E2E тесты (Playwright)
+
+1. Установите зависимости:
+
+```bash
+npm install
+```
+
+2. Один раз установите браузер Chromium для Playwright:
+
+```bash
+npx playwright install chromium
+```
+
+3. Запустите E2E тесты:
+
+```bash
+npm run test:e2e
+```
+
+Дополнительно:
+- UI-режим: `npm run test:e2e:ui`
+- Headed-режим: `npm run test:e2e:headed`
+- HTML-отчет: `npm run test:e2e:report`
+
 ## Взаимодействие с бэкендом
 
 - Базовый URL API задан в `src/api/axios.js`: `http://localhost:8000`
