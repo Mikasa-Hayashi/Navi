@@ -1,1 +1,0 @@
-Make errors handler in login and registration views. (Http responses)
