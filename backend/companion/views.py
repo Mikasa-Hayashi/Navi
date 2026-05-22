@@ -48,7 +48,13 @@ class CompanionListView(APIView):
 class CompanionDetailView(APIView):
     def get(self, request, *args, **kwargs):
         companion_id = kwargs.get('companion_id')
-        companion = Companion.objects.get(id=companion_id, owner_id=request.user)
+        try:
+            companion = Companion.objects.get(id=companion_id, owner_id=request.user)
+        except Companion.DoesNotExist:
+            return Response(
+                {'detail': 'Companion not found'},
+                status=status.HTTP_404_NOT_FOUND
+            )
         serializer = CompanionSerializer(companion)
         return Response(serializer.data)
 
