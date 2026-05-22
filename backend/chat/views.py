@@ -47,7 +47,10 @@ class ConversationListView(APIView):
 class ConversationDetailView(APIView):
     def get(self, request, *args, **kwargs):
         conversation_id = kwargs.get('conversation_id')
-        conversation = Conversation.objects.get(id=conversation_id, user_id=request.user)
+        try:
+            conversation = Conversation.objects.get(id=conversation_id, user_id=request.user)
+        except Conversation.DoesNotExist:
+            return Response({'detail': 'Conversation not found'}, status=status.HTTP_404_NOT_FOUND)
         serializer = ConversationSerializer(conversation)
         return Response(serializer.data)
 
@@ -72,8 +75,11 @@ class MessageDetailView(APIView):
     def get(self, request, *args, **kwargs):
         conversation_id = kwargs.get('conversation_id')
         message_id = kwargs.get('message_id')
-        conversation = Conversation.objects.get(id=conversation_id)
-        message = conversation.messages.get(id=message_id)
+        try:
+            conversation = Conversation.objects.get(id=conversation_id)
+            message = conversation.messages.get(id=message_id)
+        except (Conversation.DoesNotExist, Message.DoesNotExist):
+            return Response({'detail': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
         serializer = MessageSerializer(message)
         return Response(serializer.data)
         
