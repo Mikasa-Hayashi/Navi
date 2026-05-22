@@ -2,6 +2,7 @@
 /.idea/
 **/.venv/
 **/__pycache__/
+**/.vscode/
 
 # Database
 /backend/db.sqlite3
