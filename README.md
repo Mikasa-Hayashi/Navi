@@ -1,87 +1,85 @@
 # Navi
 
-Navi - fullstack веб-приложение с поддержкой real-time общения, реализующее чат с AI-компаньоном. Проект демонстрирует интеграцию REST API и WebSocket, работу с асинхронными событиями и хранение состояния диалогов пользователей. 
+Navi is a full-stack web application with real-time communication, implementing a chat system with an AI companion. The project demonstrates the integration of REST API and WebSocket communication, handling asynchronous events, and maintaining persistent conversation state for users.
 
-## Основные возможности
+## Key Features
 
-- Регистрация и аутентификация пользователей (JWT)
-- Real-time чат через WebSocket (Django Channels)
-- Сохранение истории сообщений (PostgreSQL)
-- Асинхронная обработка сообщений
-- Интеграция REST API и WebSocket в одном приложении
+- User registration and authentication (JWT)
+- Real-time chat via WebSocket (Django Channels)
+- Message history storage (PostgreSQL)
+- Asynchronous message processing
+- Combined REST API and WebSocket architecture in a single application
 
 
-## Структура проекта
+## Project Structure
 
-- `frontend` - клиентская часть (React, роутинг, работа с API и WebSocket).
-- `backend` - серверная часть (Django, REST API, JWT-аутентификация, WebSocket через Channels).
-- `.env.example` - пример переменных окружения для подключения PostgreSQL.
+- `frontend` — client application (React, routing, API and WebSocket communication)
+- `backend` — server-side application (Django, REST API, JWT authentication, WebSocket via Channels)
+- `.env.example` — example environment variables for PostgreSQL configuration
 
-## Технологический стек
+## Tech Stack
 
-- **Frontend:** React, Vite — клиентская часть с маршрутизацией и управлением состоянием
-- **Backend:** Django, Django REST Framework — API и бизнес-логика
+- **Frontend:** React, Vite — client-side application with routing and state management
+- **Backend:** Django, Django REST Framework — API and business logic
 - **Аутентификация:** JWT (SimpleJWT)
-- **Realtime:** Django Channels + Redis (WebSocket соединения)
+- **Realtime:** Django Channels + Redis (WebSocket message broker)
 - **База данных:** PostgreSQL
 
-## Архитектура
+## Architecture
 
-- Клиент (React) взаимодействует с сервером через REST API (Axios)
-- Для real-time общения используется WebSocket (Django Channels)
-- Redis выступает в роли брокера сообщений для асинхронной обработки
-- Сообщения и пользователи хранятся в PostgreSQL
+- The React client communicates with the server via REST API (Axios)
+- Real-time communication is handled via WebSockets (Django Channels)
+- Redis is used as a message broker for asynchronous event processing
+- Users and messages are stored in PostgreSQL
 
-## Быстрый старт
+## Quick Start
 
-1. Установите Python-зависимости бэкенда из `requirements.txt`.
-2. Настройте и запустите бэкенд по инструкции в `backend/README.md`.
-3. Настройте и запустите фронтенд по инструкции в `frontend/README.md`.
-4. Откройте фронтенд в браузере (обычно `http://localhost:5173`).
+1. Install backend dependencies from `requirements.txt`.
+2. Configure and run the backend according to `backend/README.md`.
+3. Configure and run the frontend according to `frontend/README.md`.
+4. Open the frontend in your browser (usually `http://localhost:5173`).
 
-## Запуск через Docker
+## Running with Docker
 
-1. Убедитесь, что установлен Docker Desktop.
-2. Скопируйте `.env.example` в `.env` и при необходимости измените значения.
-3. Запустите контейнеры:
+1. Ensure Docker Desktop is installed.
+2. Copy `.env.example` to `.env` and adjust values if needed.
+3. Start containers:
 
 ```bash
 docker compose up --build
 ```
 
-После запуска:
+After startup:
 - frontend: `http://localhost:5173`
 - backend: `http://localhost:8000`
 
-Остановка:
+Stop services:
 
 ```bash
 docker compose down
 ```
 
-Удаление вместе с volume PostgreSQL:
+Remove everything including PostgreSQL volumes:
 
 ```bash
 docker compose down -v
 ```
 
-## API и маршруты
+## API Endpoints
 
-Базовый префикс API: `http://localhost:8000/api/v1/`
+Base API URL: `http://localhost:8000/api/v1/`
 
-Основные группы эндпоинтов:
+Main endpoint groups:
 
-- `users/` - регистрация, вход, выход, обновление токена
-- `conversations/` - чаты и сообщения
-- `companions/` - данные компаньонов
+- `users/` — registration, login, logout, token refresh
+- `conversations/` — chats and messages
+- `companions/` — companion configuration and data
 
-## LLM-конфигурация
+## LLM Configuration
 
-- Бесплатный демо-режим компаньона работает через локальную Ollama.
-- Настройки модели задаются через `.env`:
+- The free demo mode of the AI companion uses a local Ollama instance.
+- Model settings are configured via `.env`:
   - `LLM_PROVIDER=ollama`
   - `LLM_MODEL=qwen2.5:3b-instruct`
   - `LLM_BASE_URL=http://127.0.0.1:11434`
-- Подробные шаги запуска LLM указаны в `backend/README.md`.
-
-Подробности и примеры команд запуска смотрите в README внутри папок `backend` и `frontend`.
+- Detailed setup instructions are available in `backend/README.md`.
